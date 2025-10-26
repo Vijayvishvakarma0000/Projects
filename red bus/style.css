@@ -1,0 +1,415 @@
+*{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family:Arial, Helvetica, sans-serif;
+}
+.main{
+      height: 100%;
+      width: 100%;
+      background-color: rgb(252, 249, 249);
+}
+.main-nav .nav .left img{
+     width: 50px;
+}
+.main-nav{
+      width: 100%;
+      background-color: #fff;
+      position: sticky;
+}
+.main-nav .nav {
+      width: 85%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+}
+.main-nav .nav .left{
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+}
+.main-nav .nav .right{
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+}
+.bus-logo img{
+      margin-top: 5px;
+      height: 27px;
+      width: 50px;
+}
+.background-bus 
+{
+      background-image: url("assests/HomeBanner.webp");
+      background-size: cover;
+      width: 100%;
+      height: 250px;
+      position: relative;
+}
+.background-bus-content{
+      width: 85%;
+      height: 100%;
+      margin: 0 auto;
+      align-content: center;
+
+}
+.background-bus-content h1{
+      font-size: 3em;
+      color: white;
+}
+.background-bus .from-to-bar{
+      width: 85%;
+      margin: 0 auto;
+      background-color: white;
+      z-index: 1;
+      height: 100px;
+      border-radius: 20px;
+      align-content: center;
+      position: absolute;
+      bottom: -3em;
+      left: 6em;
+      display: flex;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+}
+.background-bus .from-to-bar .add-address{
+      display: flex;
+      border: 1px solid black;
+       border-radius: 10px;
+       align-content: center;
+       align-items: center;
+      height: 50%;
+      width: 78%;
+      margin: 15px 5px 0px 10px
+}
+.background-bus .from-to-bar .add-address input{
+      width: 33.33%;
+     margin: 3px;
+     background-color: transparent;
+     border: none;
+     outline: none;
+     border-right: 2px solid;
+
+}
+.background-bus .from-to-bar .add-address .date{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 33.33%;
+      margin: 5px;
+}
+.background-bus .from-to-bar .add-address .date .date-btn button
+{
+   width: 80px;
+   height: 30px;
+   border: none;
+   border-radius: 20px;
+   background-color: #FED9D5;
+}
+.background-bus .from-to-bar .add-address .date .date-content{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.background-bus .from-to-bar .women{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+       border: 1px solid black;
+      border-radius: 10px;
+      height: 50%;
+       margin: 15px 5px 0px 10px;
+       padding: 5px;
+}
+.background-bus .from-to-bar .women .w-icon img{
+      height: 50px;
+      width: 50px;
+      
+}
+.background-bus .buses-btn{
+      z-index: 2;
+      position: absolute;
+      bottom: -4em;
+      left: 40em;
+      border-radius: 15px;
+      padding: 5px;
+       width: 250px;
+      height: 30px;
+      margin: 0 auto;
+      background-color: red;
+}
+.background-bus .buses-btn .buses-btn-content {
+     width: 100%;
+     text-align: center;
+}
+.background-bus .buses-btn .buses-btn-content button{
+      background-color: transparent;
+      color: white;
+      border: none;
+      font-size: 18px;
+}
+.book-train{
+      width: 85%;
+      /* background-color: red; */
+      margin: 0 auto;
+}
+.book-train .book-train-content{
+      display: flex;
+      margin-top: 100px;
+      gap: 10px;
+}
+.offer {
+      width: 100%;
+      height: 80px;
+      align-content: center;
+      margin-top: 10px;
+}
+.offer-content{
+      width: 85%;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ebebed;
+      padding: 10px;
+     
+}
+.offer-content .left{
+      width: 70%;
+      display: flex;
+      height:46px ;
+      gap: 20px;
+      align-items: center;
+}
+.offer-content .left p span{
+      color: rgb(15, 209, 57);
+}
+.offer-content .left .sep,.oct{
+      width: 150px;
+      text-align: center;
+      padding: 5px;
+      background-color: white;
+      border-radius: 10px;
+}
+.offer-content .right .pink{
+      width: 250px;
+      height: 30px;
+      align-content: center;
+      text-align: center;
+      border-radius: 20px;
+      background-color: #FED9D5;
+}
+.sardar-image{
+      width: 100%;
+      background-color: #ADF2B3;
+      margin: 20px 0;
+}
+.sardar-image .sardar-content{
+      margin: 0 auto;
+      width: 85%;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+}
+.offersforyou{
+      margin-top: 50px;
+      width: 100%;
+}
+.offersforyou .offersforyou-content{
+      margin: 0 auto;
+      width: 85%;
+}
+.offersforyou .offersforyou-content .offer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+}
+.offersforyou .offersforyou-content .offersforyou-btns button{
+      width: 70px;
+      height: 30px;
+      border-radius: 5px;
+      border: none;
+}
+.offersforyou .offersforyou-content .offer-images{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 50px;
+      margin-top: 20px;
+
+}
+.offersforyou .offersforyou-content .offer-images div{
+      width: 24%;
+      height: 160px;
+      border-radius: 10px;
+      padding: 10px;
+}
+.offersforyou .offersforyou-content .offer-images .img-1{
+      background-image: url(./assests/296x200.png);
+}
+.offersforyou .offersforyou-content .offer-images .img-2{
+      background-image: url(./assests/Android-iOS.png);
+}
+.offersforyou .offersforyou-content .offer-images .img-3{
+      background-image: url(./assests/sampleimage1.png);
+}
+.offersforyou .offersforyou-content .offer-images .img-4{
+      background-image: url(./assests/sampleimage1.png);
+}
+.offersforyou .offersforyou-content .offer-images .bus{
+      width: 60px;
+      height: 30px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 5px;
+}
+.offersforyou .offersforyou-content .offer-images .bottom{
+      margin-top: 30px;
+      background-color: white;
+      border-radius: 30px;
+      width: 80px;
+      height: 30px;
+      border: none;
+}
+.offersforyou .offersforyou-content .offer-whatsnew img{
+      width: 24%;
+}
+.offersforyou .offersforyou-content .government-bus img{
+      width: 100%;
+}
+.offersforyou .offersforyou-content .government-bus h1{
+      margin-top: 20px;
+      margin-bottom: 20px;
+}
+.offersforyou .offersforyou-content .testimonial .test{
+      border: 1px solid ;
+      width: 250px;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 5px;
+}
+.offersforyou .offersforyou-content .testimonial .test .bottom{
+      margin-top: 30px;
+}
+.offersforyou .offersforyou-content .testimonial{
+      margin: 30px 0;
+}
+.offersforyou .offersforyou-content .testimonial .uper-test{
+      display: flex;
+}
+.getapp{
+    margin: 20px auto;
+    width: 85%;
+}
+.getapp .getapp-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      padding: 5px;
+      align-content: center;
+    
+}
+.getapp .getapp-content .left{
+      display: flex;
+      gap: 20px;
+
+
+}
+.getapp .getapp-content .right button{
+      width: 200px;
+      height: 30px;
+      border-radius: 20px;
+      background-color: #FED9D5;
+      border: none;
+}
+.getapp .getapp-content img{
+      width: 50px;
+}
+.online-ticket{
+      width: 85%;
+      margin: 20px auto;
+}
+.online-ticket h1{
+      margin-bottom: 15px;
+}
+.online-ticket p{
+      margin-bottom: 15px;
+}
+.reasons-booking{
+        width: 85%;
+      margin: 20px auto;
+}
+.reasons-booking h1{
+      margin-bottom: 10px;
+}
+.faqs {
+      margin: 0 auto;
+      width: 85%;
+}
+.faqs .faqs-points{
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+}
+.faqs details{
+      padding: 15px;
+
+}
+.popular-bus details{
+      padding: 15px;
+
+}
+.popular-bus{
+      width: 85%;
+       margin: 30px auto 0 auto;
+
+}
+.footer{
+      background-color:#F2F2F8;
+}
+.footer-about{
+      width: 85%;
+      margin: 20px auto 0px auto;
+      display: flex;
+      justify-content: space-between;
+
+}
+.footer-about h3{
+      margin-bottom: 10px;
+}
+.footer-about p{
+      margin-bottom: 20px;
+      font-weight: 600;
+}
+.l-image{
+      width: 85%;
+      display: flex;
+      margin: 20px auto;
+      gap: 10px;
+}
+.l-image img{
+      width: 50px;
+}
+.copyright{
+      display: flex;
+      width: 85%;
+      justify-content: space-between;
+      align-items: center;
+      /* margin: 20px auto 0 auto; */
+      margin: 0 auto;
+      padding: 20px;
+}
+.copyright img{
+      width: 30px;
+      margin-left: 10px;
+}
