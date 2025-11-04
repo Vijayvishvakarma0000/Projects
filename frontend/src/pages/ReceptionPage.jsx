@@ -1,4 +1,3 @@
-// src/pages/reception/ReceptionPage.jsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,26 +19,40 @@ const ReceptionPage = () => {
   const auth = useSelector((state) => state.auth);
   const reception = useSelector((state) => state.reception);
 
-  // --- Clinic ID: Load from localStorage first ---
+  // Initialize clinicId from localStorage if available
   const [clinicId, setClinicId] = useState(() => {
-    const saved = localStorage.getItem("clinicId");
-    return saved ? String(saved).trim() : "";
-  });
-
-  // Sync with auth (fallback if localStorage empty)
+  const saved = localStorage.getItem("clinicId") || localStorage.getItem("selectedClinicId");
+  return saved ? String(saved).trim() : "";
+});
+  // Sync clinicId from auth when auth changes (doctor login path)
   useEffect(() => {
-    const idFromAuth = auth?.clinic?.id || auth?.user?.clinicId || auth?.user?.clinic?.id;
+    const idFromAuth =
+      auth?.clinic?.id ||
+      auth?.user?.clinicId ||
+      auth?.user?.clinic?.id ||
+      (Array.isArray(auth?.user?.clinics) && auth.user.clinics[0]?.id);
+
     if (idFromAuth) {
       const idStr = String(idFromAuth).trim();
       if (idStr && idStr !== clinicId) {
-        console.log("Syncing clinicId from auth:", idStr);
+        console.log("✅ Syncing clinicId from auth:", idStr);
         setClinicId(idStr);
-        localStorage.setItem("clinicId", idStr);
+        try {
+          localStorage.setItem("clinicId", idStr);
+        } catch (e) {
+          console.warn("Failed to persist clinicId:", e);
+        }
+      }
+    } else {
+      // fallback: maybe login flow just wrote localStorage
+      const saved = localStorage.getItem("clinicId");
+      if (saved && saved !== clinicId) {
+        setClinicId(String(saved).trim());
       }
     }
-  }, [auth, clinicId]);
+  }, [auth]); // run when auth updates
 
-  // Debug (optional – remove in production)
+  // Debug logs (remove in production)
   useEffect(() => {
     console.log("CLINIC DEBUG:", {
       localStorage: localStorage.getItem("clinicId"),
@@ -84,10 +97,17 @@ const ReceptionPage = () => {
   const [billing, setBilling] = useState([]);
 
   const facilityOptions = [
-    "Consultation", "Lab Test", "Dressing", "Injection", "X-Ray", "ECG", "Pharmacy",
+    "Consultation",
+    "Lab Test",
+    "Dressing",
+    "Injection",
+    "X-Ray",
+    "ECG",
+    "Pharmacy",
   ];
 
   // --- Fetch Patients ---
+  // effect depends on clinicId and auth so it re-runs when either becomes available
   useEffect(() => {
     if (clinicId) {
       console.log("Fetching patients for clinic:", clinicId);
@@ -95,9 +115,9 @@ const ReceptionPage = () => {
     } else {
       console.log("No clinicId, skipping fetch");
     }
-  }, [clinicId, dispatch]);
+  }, [clinicId, auth, dispatch]);
 
-  // --- Fetch Calendar ---
+  // --- Fetch Calendar (daily) ---
   useEffect(() => {
     if (clinicId) {
       const today = new Date().toISOString().split("T")[0];
@@ -105,6 +125,7 @@ const ReceptionPage = () => {
     }
   }, [dispatch, clinicId]);
 
+  // Re-fetch when selectedDate changes
   useEffect(() => {
     if (clinicId && selectedDate) {
       dispatch(fetchDailyCalendar({ date: selectedDate, clinicId }));
@@ -128,9 +149,15 @@ const ReceptionPage = () => {
 
     try {
       const createdPatient = await dispatch(registerPatient(payload)).unwrap();
-      alert(`Patient Registered! Token: T${String(createdPatient.id || patients.length + 1).padStart(3, "0")}`);
+      alert(
+        `Patient Registered! Token: T${String(
+          createdPatient.id || patients.length + 1
+        ).padStart(3, "0")}`
+      );
       setShowPatientForm(false);
       setEditingPatient(null);
+      // optionally re-fetch to ensure list updated
+      if (clinicId) dispatch(fetchPatients(clinicId));
     } catch (err) {
       alert(`Error: ${err.message || err}`);
       console.error("Register error:", err);
@@ -148,10 +175,18 @@ const ReceptionPage = () => {
     const time = prompt("Time:");
     if (!doctor || !time) return alert("Required!");
     const token = `T${String(patientId).padStart(3, "0")}`;
-    setAppointments(prev => [...prev, {
-      id: prev.length + 1,
-      patientId, doctor, date: selectedDate, time, status: "waiting", token
-    }]);
+    setAppointments((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        patientId,
+        doctor,
+        date: selectedDate,
+        time,
+        status: "waiting",
+        token,
+      },
+    ]);
     alert(`Booked: ${doctor} at ${time}`);
   };
 
@@ -166,20 +201,32 @@ const ReceptionPage = () => {
       return alert("Fix errors");
     }
 
-    const total = parseFloat(newBill.consultationFee || 0) + parseFloat(newBill.serviceAmount || 0);
+    const total =
+      parseFloat(newBill.consultationFee || 0) +
+      parseFloat(newBill.serviceAmount || 0);
     const discount = parseFloat(newBill.discount || 0);
 
-    setBilling(prev => [...prev, {
-      id: prev.length + 1,
-      patientId: parseInt(newBill.patientId),
-      amount: total,
-      details: [newBill.customService || newBill.service || "Consultation"],
-      date: selectedDate,
-      discount,
-    }]);
+    setBilling((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        patientId: parseInt(newBill.patientId),
+        amount: total,
+        details: [newBill.customService || newBill.service || "Consultation"],
+        date: selectedDate,
+        discount,
+      },
+    ]);
 
     alert(`Bill: ₹${(total - discount).toFixed(2)}`);
-    setNewBill({ patientId: "", consultationFee: "", service: "", customService: "", serviceAmount: "", discount: "0" });
+    setNewBill({
+      patientId: "",
+      consultationFee: "",
+      service: "",
+      customService: "",
+      serviceAmount: "",
+      discount: "0",
+    });
     setBillErrors({});
   };
 
@@ -198,23 +245,27 @@ const ReceptionPage = () => {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // --- Filters ---
-  const filteredPatients = patients.filter(p =>
-    p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.mobile?.includes(searchQuery) ||
-    p.uhid?.includes(searchQuery)
+  // --- Filters & helpers ---
+  const filteredPatients = patients.filter(
+    (p) =>
+      p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.mobile?.includes(searchQuery) ||
+      p.uhid?.includes(searchQuery)
   );
 
   const getTotalBilling = (patientId) =>
-    billing.filter(b => b.patientId === patientId)
+    billing
+      .filter((b) => b.patientId === patientId)
       .reduce((sum, b) => sum + (b.amount - (b.discount || 0)), 0);
 
-  const waiting = patients.filter(p => p.status === "Waiting");
-  const pending = patients.filter(p => p.status === "Pending");
-  const emergency = patients.filter(p => p.status === "Emergency");
+  const waiting = patients.filter((p) => p.status === "Waiting");
+  const pending = patients.filter((p) => p.status === "Pending");
+  const emergency = patients.filter((p) => p.status === "Emergency");
 
   const onUpdateStatus = (id, status) => {
-    setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
+    setAppointments((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status } : a))
+    );
   };
 
   const onSendReminder = (patientId, doctorId, time, date) => {
@@ -224,7 +275,10 @@ const ReceptionPage = () => {
   return (
     <>
       <style jsx>{`
-        .layout { display: flex; min-height: 100vh; }
+        .layout {
+          display: flex;
+          min-height: 100vh;
+        }
         .container {
           padding: 30px;
           background: #f4f9ff;
@@ -244,8 +298,19 @@ const ReceptionPage = () => {
           padding: 10px;
           cursor: pointer;
         }
-        .header { text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #333; }
-        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .header {
+          text-align: center;
+          font-size: 28px;
+          font-weight: bold;
+          margin-bottom: 20px;
+          color: #333;
+        }
+        .tabs {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
         .tab-button {
           padding: 10px 20px;
           border-radius: 6px;
@@ -254,43 +319,71 @@ const ReceptionPage = () => {
           font-weight: bold;
           cursor: pointer;
         }
-        .tab-button.active { background: #186476; color: #fff; }
+        .tab-button.active {
+          background: #186476;
+          color: #fff;
+        }
       `}</style>
 
       <div style={{ position: "fixed", top: 20, right: 20, zIndex: 1000 }}>
-        <button onClick={handleLogout} style={{
-          background: "#dc3545", color: "white", border: "none", padding: "10px 18px",
-          borderRadius: "8px", fontWeight: "600", cursor: "pointer"
-        }}>
+        <button
+          onClick={handleLogout}
+          style={{
+            background: "#dc3545",
+            color: "white",
+            border: "none",
+            padding: "10px 18px",
+            borderRadius: "8px",
+            fontWeight: "600",
+            cursor: "pointer",
+          }}
+        >
           Logout
         </button>
       </div>
 
       <div className="layout">
-        {isSidebarOpen && <DoctorSidebar />}  {/* jsx={true} removed */}
+        {isSidebarOpen && <DoctorSidebar />}
         <div className="container">
-          <button className="toggle-button" onClick={toggleSidebar}>Menu</button>
+          <button className="toggle-button" onClick={toggleSidebar}>
+            Menu
+          </button>
           <h1 className="header">Reception Dashboard</h1>
 
           <div className="tabs">
-            {["dashboard", "patients", "appointments", "billing", "newBill"].map(tab => (
+            {[
+              "dashboard",
+              "patients",
+              "appointments",
+              "billing",
+              "newBill",
+            ].map((tab) => (
               <button
                 key={tab}
                 className={`tab-button ${activeTab === tab ? "active" : ""}`}
                 onClick={() => setActiveTab(tab)}
               >
-                {tab === "newBill" ? "New Bill" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === "newBill"
+                  ? "New Bill"
+                  : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
 
-          {patientLoading && <p style={{ textAlign: "center", color: "#186476" }}>Loading...</p>}
-          {patientError && <p style={{ textAlign: "center", color: "red" }}>{patientError}</p>}
+          {patientLoading && (
+            <p style={{ textAlign: "center", color: "#186476" }}>Loading...</p>
+          )}
+          {patientError && (
+            <p style={{ textAlign: "center", color: "red" }}>{patientError}</p>
+          )}
 
           {showPatientForm && (
             <AddPatientForm
               onSave={handleAddPatient}
-              onClose={() => { setShowPatientForm(false); setEditingPatient(null); }}
+              onClose={() => {
+                setShowPatientForm(false);
+                setEditingPatient(null);
+              }}
               existingPatient={editingPatient}
             />
           )}
@@ -320,6 +413,7 @@ const ReceptionPage = () => {
               handleBookAppointment={handleBookAppointment}
               handleEditPatient={handleEditPatient}
               setActiveTab={setActiveTab}
+              setNewBill={setNewBill}
               clinicIdProp={clinicId}
             />
           )}
@@ -339,7 +433,12 @@ const ReceptionPage = () => {
           )}
 
           {activeTab === "billing" && (
-            <Billing patients={patients} billing={billing} getTotalBilling={getTotalBilling} />
+            <Billing
+              patients={patients}
+              billing={billing}
+              getTotalBilling={getTotalBilling}
+              clinicId={clinicId}
+            />
           )}
 
           {activeTab === "newBill" && (

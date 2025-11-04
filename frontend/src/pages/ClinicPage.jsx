@@ -10,6 +10,8 @@ import Preferences from "./Tabs/Preferences";
 import PrescriptionCertificates from "./Tabs/PrescriptionCertificates";
 import BillingCommunication from "./Tabs/BillingCommunication";
 import StaffManagement from "./Tabs/StaffManagement";
+import ClinicExpenseManagement from "./Tabs/ClinicExpenseManagement";
+import ClinicEmergencyDirectory from "./Tabs/ClinicEmergencyDirectory";
 import {
   fetchClinicById,
   updateClinic,
@@ -235,6 +237,8 @@ const ClinicPage = () => {
             { id: "preferences", label: "Preferences" },
             { id: "prescription", label: "Prescription & Certificates" },
             { id: "billing", label: "Billing & Communication" },
+            { id: "expense", label: "Expense Management" },
+            { id: "emergency", label: "Emergency Directory" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -273,6 +277,18 @@ const ClinicPage = () => {
             <BillingCommunication
               clinicData={currentClinic}
               onSave={handleSave}
+            />
+          )}
+          {activeTab === "expense" && (
+            <ClinicExpenseManagement
+            clinicData={currentClinic}
+            onSave={handleSave}
+            />
+          )}
+          {activeTab === "emergency" && (
+            <ClinicEmergencyDirectory
+            clinicData={currentClinic}
+            onSave={handleSave}
             />
           )}
           {activeTab === "staff" && (

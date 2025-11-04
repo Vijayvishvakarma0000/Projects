@@ -220,7 +220,7 @@ const Dashboard = ({
           <div className="overview-card">
             Total Billing (Today)
             <br />
-            <strong style={{ fontSize: "1.6rem" }}>₹{displayBilling}</strong>
+            <strong style={{ fontSize: "1.6rem" }}>{displayBilling}</strong>
             {getStatsStatusMessage()}
           </div>
         </div>

@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createAppointment,
-  getNextAppointmentId,
+  createAppointment,// ← Alag feature ke liye rakha (queue/next patient)
+  preGenerateAppointmentId, // ← New API for appointment ID
 } from "../../redux/Slices/appointmentsSlice";
 
 const AppointmentForm = ({
@@ -11,17 +11,21 @@ const AppointmentForm = ({
   onClose,
   defaultClinicId,
   defaultDoctorId,
+  onSuccess,
 }) => {
   const dispatch = useDispatch();
+
+  // Redux state (dono APIs ke liye)
   const {
     creating,
     createError,
-    nextAppointmentId,
-    fetchingNextId,
-    fetchNextIdError,
+
+    // New: pre-generate ID states
+    preGeneratedId,
+    preGenerating,
+    preGenerateError,
   } = useSelector((state) => state.appointments || {});
 
-  const [clinicId, setClinicId] = useState(defaultClinicId || "");
   const [doctorId, setDoctorId] = useState(defaultDoctorId || "");
   const [patientId, setPatientId] = useState(initialPatient?._id || "");
   const [appointmentId, setAppointmentId] = useState("");
@@ -31,103 +35,98 @@ const AppointmentForm = ({
 
   const timeInputRef = useRef(null);
 
+  // Sync patientId
   useEffect(() => {
-    if (initialPatient) setPatientId(initialPatient._id);
+    if (initialPatient?._id) setPatientId(initialPatient._id);
   }, [initialPatient]);
 
-  // When clinicId (or doctorId) is available, request pregenerated ID
+  // Fetch pre-generated appointment ID (correct API)
   useEffect(() => {
     if (defaultClinicId) {
-      dispatch(getNextAppointmentId({ clinicId: defaultClinicId }))
+      dispatch(preGenerateAppointmentId({ clinicId: defaultClinicId }))
         .unwrap()
         .then((res) => {
-          setAppointmentId(res.appointmentId);
+          setAppointmentId(res.appointmentId || "");
         })
-        .catch((err) => {
-          console.error("Failed to pre-generate appointment ID:", err);
+        .catch(() => {
+          setAppointmentId(clientGenerateAppointmentId(defaultClinicId));
         });
     }
   }, [defaultClinicId, dispatch]);
 
-  // Keep component in sync if slice updates nextAppointmentId later
+  // Sync from Redux if regenerated
   useEffect(() => {
-    if (nextAppointmentId) setAppointmentId(nextAppointmentId);
-  }, [nextAppointmentId]);
+    if (preGeneratedId) {
+      setAppointmentId(preGeneratedId);
+    }
+  }, [preGeneratedId]);
 
-  // Converts "HH:mm" local time to "HH:mm" UTC string
-  function convertLocalTimeToUTC(timeStr) {
+  // Convert local time to UTC
+  const convertLocalTimeToUTC = (timeStr) => {
     if (!timeStr) return "";
     const [hours, minutes] = timeStr.split(":").map(Number);
-
-    // Create a Date object for today with that local time
     const localDate = new Date();
     localDate.setHours(hours, minutes, 0, 0);
-
-    // Convert to UTC hours/minutes
-    const utcHours = localDate.getUTCHours();
-    const utcMinutes = localDate.getUTCMinutes();
-
-    // Return as "HH:mm"
-    return `${String(utcHours).padStart(2, "0")}:${String(utcMinutes).padStart(
-      2,
-      "0"
-    )}`;
-  }
+    return `${String(localDate.getUTCHours()).padStart(2, "0")}:${String(
+      localDate.getUTCMinutes()
+    ).padStart(2, "0")}`;
+  };
 
   const handleSubmit = (e) => {
-    // Convert time → UTC
-    const utcTime = convertLocalTimeToUTC(time);
-    console.log("Local time:", time, "→ UTC time:", utcTime);
-
-    const payload = {
-      doctorId: doctorId || null, // 👈 send null if empty
-      clinicId,
-      patientId,
-      appointmentId,
-      date,
-      time: utcTime, // 👈 use UTC time here
-      referredBy,
-    };
     e.preventDefault();
 
-    {
-      /*if (!clinicId || !doctorId || !patientId || !date || !time || !appointmentId) {
-      alert("Please fill required fields (clinic, doctor, patient, appointmentId, date, time).");
+    if (!defaultClinicId) {
+      alert("Clinic ID is missing!");
       return;
     }
-*/
+    if (!patientId || !date || !time) {
+      alert("Please fill all required fields.");
+      return;
     }
+
+    const utcTime = convertLocalTimeToUTC(time);
+    const payload = {
+      doctorId: doctorId || null,
+      clinicId: defaultClinicId,
+      patientId,
+      appointmentId: appointmentId || clientGenerateAppointmentId(defaultClinicId),
+      date,
+      time: utcTime,
+      referredBy: referredBy || undefined,
+    };
+
+    console.log("Sending appointment payload:", payload);
+
     dispatch(createAppointment(payload))
       .unwrap()
-      .then(() => {
-        alert("Appointment created");
+      .then((res) => {
+        onSuccess?.(res);
+        alert("Appointment created successfully!");
         onClose();
       })
       .catch((err) => {
-        console.error("Create appointment failed:", err);
+        console.error("Create failed:", err);
+        alert("Failed: " + (err.error || err.message || "Try again"));
       });
   };
 
-  const focusTimeInput = () => {
-    if (timeInputRef.current) timeInputRef.current.focus();
-  };
-
+  // Regenerate using pre-generate API
   const regenerateId = () => {
-    if (!clinicId) {
+    if (!defaultClinicId) {
       alert("Clinic ID required to generate appointment id.");
       return;
     }
-
-    dispatch(getNextAppointmentId({ clinicId, doctorId }))
+    dispatch(preGenerateAppointmentId({ clinicId: defaultClinicId }))
       .unwrap()
       .then((res) => {
-        if (res?.appointmentId) setAppointmentId(res.appointmentId);
-        else setAppointmentId(clientGenerateAppointmentId(clinicId));
+        setAppointmentId(res.appointmentId);
       })
       .catch(() => {
-        setAppointmentId(clientGenerateAppointmentId(clinicId));
+        setAppointmentId(clientGenerateAppointmentId(defaultClinicId));
       });
   };
+
+  const focusTimeInput = () => timeInputRef.current?.focus();
 
   return (
     <div style={ui.overlay}>
@@ -135,12 +134,10 @@ const AppointmentForm = ({
         <header style={ui.header}>
           <div>
             <h2 style={ui.title}>Create Appointment</h2>
-            <p style={ui.subtitle}>
-              Fill the details below to create an appointment.
-            </p>
+            <p style={ui.subtitle}>Fill the details below to create an appointment.</p>
           </div>
           <button onClick={onClose} aria-label="Close" style={ui.closeBtn}>
-            ✕
+            X
           </button>
         </header>
 
@@ -150,8 +147,7 @@ const AppointmentForm = ({
               <div>
                 <div style={ui.patientName}>{initialPatient.name}</div>
                 <div style={ui.patientMeta}>
-                  UHID: {initialPatient.uhid || "—"} · Age:{" "}
-                  {initialPatient.age || "—"} · {initialPatient.gender || "—"}
+                  UHID: {initialPatient.uhid || "—"} · Age: {initialPatient.age || "—"} · {initialPatient.gender || "—"}
                 </div>
               </div>
               <div style={ui.patientId}>ID: {initialPatient._id}</div>
@@ -163,8 +159,7 @@ const AppointmentForm = ({
               Clinic ID *
               <input
                 style={{ ...ui.input, ...ui.readOnlyInput }}
-                value={clinicId}
-                onChange={(e) => setClinicId(e.target.value)}
+                value={defaultClinicId || "—"}
                 readOnly
               />
             </label>
@@ -174,8 +169,6 @@ const AppointmentForm = ({
               <input
                 style={{ ...ui.input, ...ui.readOnlyInput }}
                 value={patientId}
-                onChange={(e) => setPatientId(e.target.value)}
-                placeholder="patientId"
                 readOnly
               />
             </label>
@@ -186,27 +179,20 @@ const AppointmentForm = ({
                 <input
                   style={{ ...ui.input, ...ui.readOnlyInput, flex: 1 }}
                   value={appointmentId}
-                  onChange={(e) => setAppointmentId(e.target.value)}
+                  readOnly
                 />
                 <button
                   type="button"
                   onClick={regenerateId}
-                  style={{
-                    padding: "8px 10px",
-                    borderRadius: 8,
-                    border: "1px solid #e5e7eb",
-                    background: "#fff",
-                    cursor: "pointer",
-                  }}
-                  disabled={fetchingNextId}
-                  title="Regenerate appointment id"
+                  style={ui.regenBtn}
+                  disabled={preGenerating}
                 >
-                  {fetchingNextId ? "..." : "Regenerate"}
+                  {preGenerating ? "..." : "Regenerate"}
                 </button>
               </div>
-              {fetchNextIdError && (
+              {preGenerateError && (
                 <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 6 }}>
-                  Failed to fetch id from server — using fallback.
+                  Using fallback ID
                 </div>
               )}
             </label>
@@ -218,6 +204,7 @@ const AppointmentForm = ({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                required
               />
             </label>
 
@@ -230,11 +217,11 @@ const AppointmentForm = ({
                   type="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
+                  required
                 />
                 <button
                   type="button"
                   onClick={focusTimeInput}
-                  aria-label="Open time picker"
                   style={ui.watchBtn}
                 ></button>
               </div>
@@ -246,7 +233,7 @@ const AppointmentForm = ({
                 style={ui.input}
                 value={referredBy}
                 onChange={(e) => setReferredBy(e.target.value)}
-                placeholder="Dr Sachin (optional)"
+                placeholder="Dr. Smith (optional)"
               />
             </label>
           </div>
@@ -255,7 +242,6 @@ const AppointmentForm = ({
             <div style={ui.helpText}>
               <small>Required fields are marked with *</small>
             </div>
-
             <div style={ui.actions}>
               <button
                 type="button"
@@ -265,7 +251,6 @@ const AppointmentForm = ({
               >
                 Cancel
               </button>
-
               <button
                 type="submit"
                 style={{ ...ui.button, ...ui.submitBtn }}
@@ -279,7 +264,7 @@ const AppointmentForm = ({
           {createError && (
             <div style={ui.error}>
               <strong>Error:</strong>{" "}
-              {createError.message || JSON.stringify(createError)}
+              {createError.error || createError.message || "Unknown error"}
             </div>
           )}
         </form>
@@ -288,23 +273,15 @@ const AppointmentForm = ({
   );
 };
 
-// client-side fallback generator (used only if server call fails)
+// Updated fallback: API jaisa format (SK-APPT-2025-XXXX)
 function clientGenerateAppointmentId(clinicId = "") {
-  const t = new Date();
-  const yyyy = t.getFullYear();
-  const mm = String(t.getMonth() + 1).padStart(2, "0");
-  const dd = String(t.getDate()).padStart(2, "0");
-  const hh = String(t.getHours()).padStart(2, "0");
-  const min = String(t.getMinutes()).padStart(2, "0");
-  const ss = String(t.getSeconds()).padStart(2, "0");
-  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-  const prefix = clinicId
-    ? clinicId.toString().slice(0, 6).toUpperCase()
-    : "CLN";
-  return `${prefix}-${yyyy}${mm}${dd}-${hh}${min}${ss}-${rand}`;
+  const prefix = clinicId ? clinicId.slice(0, 2).toUpperCase() : "XX";
+  const year = new Date().getFullYear();
+  const counter = String(Math.floor(Math.random() * 9999) + 1).padStart(4, "0");
+  return `${prefix}-APPT-${year}-${counter}`;
 }
 
-/* UI object (use your existing ui from prior file) */
+// UI Styles (unchanged)
 const ui = {
   overlay: {
     position: "fixed",
@@ -319,36 +296,31 @@ const ui = {
   modal: {
     width: 720,
     maxWidth: "100%",
-    background: "#ffffff",
+    background: "#fff",
     borderRadius: 12,
     boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
     overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
   },
   header: {
     padding: "18px 20px",
     borderBottom: "1px solid #eef2f5",
     display: "flex",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   title: { margin: 0, fontSize: 18, color: "#111827" },
-  subtitle: { margin: "6px 0 0 0", color: "#6b7280", fontSize: 13 },
+  subtitle: { margin: "6px 0 0", color: "#6b7280", fontSize: 13 },
   closeBtn: {
     background: "transparent",
     border: "none",
     fontSize: 18,
     cursor: "pointer",
-    padding: 6,
-    lineHeight: 1,
     color: "#6b7280",
   },
   form: { padding: 20, display: "flex", flexDirection: "column", gap: 12 },
   patientCard: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
     background: "#f8fafc",
     padding: 12,
     borderRadius: 8,
@@ -365,18 +337,8 @@ const ui = {
     border: "1px solid #e6eef6",
     fontFamily: "monospace",
   },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: 12,
-    alignItems: "start",
-  },
-  label: {
-    display: "flex",
-    flexDirection: "column",
-    fontSize: 13,
-    color: "#0f172a",
-  },
+  grid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 },
+  label: { display: "flex", flexDirection: "column", fontSize: 13, color: "#0f172a" },
   input: {
     marginTop: 6,
     padding: "10px 12px",
@@ -384,12 +346,25 @@ const ui = {
     border: "1px solid #dbe7f0",
     outline: "none",
     fontSize: 14,
-    boxShadow: "inset 0 -1px 0 rgba(16,24,40,0.03)",
   },
-  readOnlyInput: {
-    background: "#f3f4f6",
-    color: "#374151",
-    cursor: "not-allowed",
+  readOnlyInput: { background: "#f3f4f6", color: "#374151", cursor: "not-allowed" },
+  regenBtn: {
+    padding: "8px 10px",
+    borderRadius: 8,
+    border: "1px solid #e5e7eb",
+    background: "#fff",
+    cursor: "pointer",
+  },
+  timeWrap: { position: "relative", display: "flex", alignItems: "center" },
+  watchBtn: {
+    position: "absolute",
+    right: 8,
+    top: "50%",
+    transform: "translateY(-50%)",
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+    color: "#6b7280",
   },
   footer: {
     display: "flex",
@@ -420,25 +395,6 @@ const ui = {
     padding: 10,
     borderRadius: 8,
     fontSize: 13,
-  },
-  timeWrap: {
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-  },
-  watchBtn: {
-    position: "absolute",
-    right: 8,
-    top: "50%",
-    transform: "translateY(-50%)",
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    padding: 6,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#6b7280",
   },
 };
 

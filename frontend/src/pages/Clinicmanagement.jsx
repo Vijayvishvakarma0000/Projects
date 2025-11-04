@@ -204,7 +204,7 @@ const ClinicManagementPage = () => {
   const handleSelectClinic = (clinic) => {
     const clinicId = clinic.id || clinic._id;
     // Update localStorage
-    localStorage.setItem("selectedClinicId", clinicId);
+    //localStorage.setItem("clinicId", clinicId);
     localStorage.setItem("selectedClinicId", clinicId);
     dispatch(setCurrentClinic(clinic));
     navigate(`/doctor-dashboard?clinicId=${clinicId}`);

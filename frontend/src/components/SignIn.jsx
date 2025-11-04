@@ -7,6 +7,7 @@ import {
   verifyLoginOTP,
   resetError,
   logout,
+  fetchUserProfile,
 } from "../redux/Slices/authSlice";
 import axios from "axios";
 import logo from "../assets/logo.png";
@@ -49,10 +50,43 @@ const SignIn = () => {
 
   // Navigate after successful doctor login
   useEffect(() => {
-    if (loginOtpVerified && user && selectedRole === "doctor") {
-      navigate("/clinic-management");
+    if (loginOtpVerified && selectedRole === "doctor") {
+      // first check existing sources for clinicId
+      const clinicFromUser =
+        user?.clinicId || user?.clinic?.id || user?.clinic?._id;
+      const clinicFromState = localStorage.getItem("clinicId"); // auth.clinic is in Redux but easiest is localStorage
+      const clinicIdNow = clinicFromUser || clinicFromState || null;
+
+      if (clinicIdNow) {
+        console.log("SignIn: clinicId present, navigating", clinicIdNow);
+        navigate("/clinic-management");
+        return;
+      }
+
+      // clinic missing: fetch profile to try to populate it (authSlice will save clinic)
+      (async () => {
+        try {
+          console.log("SignIn: clinicId missing, fetching user profile...");
+          await dispatch(fetchUserProfile()).unwrap();
+          // after profile fetch, try to read again
+          const after = localStorage.getItem("clinicId");
+          if (after) {
+            console.log(
+              "SignIn: clinicId now present after profile fetch:",
+              after
+            );
+          } else {
+            console.warn("SignIn: clinicId still missing after profile fetch");
+          }
+        } catch (err) {
+          console.warn("SignIn: fetchUserProfile failed:", err);
+        } finally {
+          // navigate anyway to clinic-management (you can change this behavior if you prefer to block)
+          navigate("/clinic-management");
+        }
+      })();
     }
-  }, [loginOtpVerified, user, selectedRole, navigate]);
+  }, [loginOtpVerified, user, selectedRole, navigate, dispatch]);
 
   // Clear error on unmount
   useEffect(() => () => dispatch(resetError()), [dispatch]);
@@ -109,7 +143,10 @@ const SignIn = () => {
         const response = await axios.post(
           "https://api.mediscript.in/api/auth/login",
           { identifier: p, password: pwd },
-          { headers: { "Content-Type": "application/json" }, withCredentials: true }
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
         );
 
         const { user: apiUser, accessToken } = response.data;
@@ -120,7 +157,8 @@ const SignIn = () => {
         }
 
         // Extract clinicId from any possible field
-        const clinicId = apiUser?.clinicId || apiUser?.clinic?.id || apiUser?.clinic_id;
+        const clinicId =
+          apiUser?.clinicId || apiUser?.clinic?.id || apiUser?.clinic_id;
         if (!clinicId) {
           setFormError("Clinic not assigned. Contact admin.");
           return;
@@ -138,11 +176,10 @@ const SignIn = () => {
         console.log("Receptionist Login Success – clinicId saved:", clinicId);
 
         // Wait for localStorage write
-        await new Promise(resolve => setTimeout(resolve, 0));
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
         // Now navigate
         navigate("/receptionist-dashboard");
-
       } catch (err) {
         console.error("Login error:", err);
         setFormError(
@@ -168,7 +205,9 @@ const SignIn = () => {
       return;
     }
     try {
-      await dispatch(requestLoginOTP({ contact: phone, role: selectedRole })).unwrap();
+      await dispatch(
+        requestLoginOTP({ contact: phone, role: selectedRole })
+      ).unwrap();
       setResendTimer(30);
     } catch (err) {
       setFormError(err?.message || "Failed to resend OTP");
@@ -190,10 +229,16 @@ const SignIn = () => {
 
           <h3 style={styles.roleSelectionTitle}>Select Your Role</h3>
           <div style={styles.buttonContainer}>
-            <button onClick={() => setSelectedRole("doctor")} style={styles.button}>
+            <button
+              onClick={() => setSelectedRole("doctor")}
+              style={styles.button}
+            >
               Doctor
             </button>
-            <button onClick={() => setSelectedRole("receptionist")} style={styles.button}>
+            <button
+              onClick={() => setSelectedRole("receptionist")}
+              style={styles.button}
+            >
               Receptionist
             </button>
           </div>
@@ -232,7 +277,9 @@ const SignIn = () => {
                   type="tel"
                   placeholder="Enter 10-digit phone number"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))}
+                  onChange={(e) =>
+                    setPhone(e.target.value.replace(/[^0-9]/g, ""))
+                  }
                   style={styles.input}
                   disabled={loading}
                 />
@@ -245,7 +292,9 @@ const SignIn = () => {
                     type="text"
                     placeholder="Enter 4-6 digit OTP"
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ""))}
+                    onChange={(e) =>
+                      setOtp(e.target.value.replace(/[^0-9]/g, ""))
+                    }
                     style={styles.input}
                     disabled={loading}
                   />
@@ -270,7 +319,9 @@ const SignIn = () => {
                   type="tel"
                   placeholder="Enter 10-digit phone number"
                   value={receptionistPhone}
-                  onChange={(e) => setReceptionistPhone(e.target.value.replace(/[^0-9]/g, ""))}
+                  onChange={(e) =>
+                    setReceptionistPhone(e.target.value.replace(/[^0-9]/g, ""))
+                  }
                   style={styles.input}
                   disabled={loading}
                 />
