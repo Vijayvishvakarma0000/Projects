@@ -1,0 +1,20 @@
+
+.card-con{
+  width: 100%;
+}
+.card-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+  margin: 0 auto;
+}
+
+.no-data {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  grid-column: 1/-1;
+}
