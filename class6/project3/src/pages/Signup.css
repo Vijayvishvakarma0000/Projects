@@ -1,0 +1,61 @@
+/* styles.css */
+
+.form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-input,
+.form-textarea,
+.form-file {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-checkbox,
+.form-radio {
+  display: block;
+  margin: 6px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-submit:hover {
+  background-color: #0056b3;
+}

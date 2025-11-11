@@ -1,0 +1,164 @@
+:root{
+  --card-bg: #f3e8e8;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --price: #059669;
+  --card-radius: 12px;
+  --shadow: 0 6px 18px rgba(15,23,42,0.08);
+  --gap: 12px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Card wrapper */
+.product-card{
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  width: 100%;
+  max-width: 320px;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Hover lift */
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+}
+
+/* Media area keeps aspect ratio */
+.product-media{
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f3f4f6, #ffffff);
+  display: grid;
+  place-items: center;
+}
+
+.product-media img{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+
+/* Slight zoom on hover */
+.product-card:hover .product-media img{
+  transform: scale(1.03);
+}
+
+/* Body */
+.product-body{
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Title */
+.product-title{
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #0f172a;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Description limited to 3 lines */
+.product-desc{
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.3;
+  max-height: calc(1.3rem * 3.2); /* approx 3 lines */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Footer area (price, rating, button) */
+.product-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Price & rating container */
+.price-rating{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Price */
+.price{
+  font-weight: 700;
+  color: var(--price);
+  font-size: 1rem;
+}
+
+/* Rating block */
+.rating{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* numeric rating */
+.rating-value{
+  font-weight: 600;
+}
+
+/* Stars (pure-CSS star bar using linear-gradient) */
+.rating-stars{
+  display: inline-block;
+  width: 86px;
+  height: 12px;
+  background:
+    linear-gradient(90deg, #ffd166 0 0) left/ var(--filled, 0%) 100% no-repeat,
+    repeating-linear-gradient(90deg, #e6e7ea 0 24px, #e6e7ea 24px 48px) ;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* We will control filled percent using attribute with JS or CSS variable */
+.rating-stars::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+
+
+
+/* Responsive: let card expand horizontally on wider screens when in a grid */
+@media (min-width: 720px){
+  .product-card{ max-width: 380px; }
+}
+
+/* Small helper to set star fill via data attribute (JS will set --filled) */
+.product-card .rating-stars{
+  /* default fill 0% */
+  --filled: 0%;
+}
+
+/* Utility: raised small text */
+.small-muted{ font-size: 0.82rem; color: var(--muted); }
+
+/* Accessibility focus */
+.product-card:focus-within{ outline: 3px solid rgba(37,99,235,0.12); outline-offset: 4px; }

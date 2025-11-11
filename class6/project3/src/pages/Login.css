@@ -1,0 +1,88 @@
+/* Container centers the form */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4a90e2, #6dd5fa, #ffffff);
+}
+
+/* Card box */
+.login-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 350px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.login-form input:focus {
+  border-color: #4a90e2;
+}
+
+/* Button */
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-form button:hover {
+  background: #357ab7;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-footer a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
