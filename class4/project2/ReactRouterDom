@@ -1,0 +1,19 @@
+Install this In your Project-> npm i react-router-dom
+Goto index.js
+add the below code 
+
+    <BrowserRouter>
+    <App/>
+    </BrowserRouter>>
+
+
+Goto app.js and define your routes
+<Routes>
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+ go to your link jha par link banana hai
