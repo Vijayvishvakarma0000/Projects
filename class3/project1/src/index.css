@@ -1,0 +1,319 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-conatiner {
+  /* background-color: yellow; */
+  height: auto;
+}
+
+.nav-bar {
+  background-color: rgb(255, 0, 204);
+
+}
+
+.card-container {
+  background-color: aqua;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single-card {
+  height: 100px;
+  width: 100px;
+  background-color: red;
+}
+
+.nav-bar {
+  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+  padding: 15px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.nav-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 25px;
+}
+
+.nav-bar li {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Hover underline effect */
+.nav-bar li::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.nav-bar li:hover::after {
+  width: 100%;
+}
+
+.nav-bar li:hover {
+  color: #fffae3;
+  transform: translateY(-2px);
+}
+
+/* Optional for first item (Home) -> push to left */
+.nav-bar li:first-child {
+  margin-right: auto;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.card-container {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  padding: 25px;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+ 
+
+  /* shadow + hover effect */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+  border-color: #4e54c8;
+}
+
+
+
+
+.card-parent{
+  display: flex;
+  flex-wrap:wrap ;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+}
+.single-card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.single-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  border-color: #4e54c8;
+}
+
+
+.single-card h1 {
+  font-size: 20px;
+  margin: 15px 0 8px;
+  color: #333;
+}
+
+.single-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 20px;
+  line-height: 1.6;
+}
+
+.btn {
+  display: inline-block;
+  margin: 15px 0 20px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  /* transition: background 0.3s ease; */
+}
+
+.btn:hover {
+  background: linear-gradient(90deg, #3a3fcf, #757dfb);
+}
+
+
+/* dark theme css */
+
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App-body {
+  background: #121212;
+  color: #f5f5f5;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+/* Main Container */
+.App-body .main-conatiner {
+  height: auto;
+  background: #121212;
+}
+
+/* Navbar */
+.App-body .nav-bar {
+  background: linear-gradient(90deg, #2c2f70, #3e427a);
+  padding: 15px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.App-body .nav-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 25px;
+}
+
+.App-body .nav-bar li {
+  color: #f5f5f5;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.App-body .nav-bar li::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #f5f5f5;
+  transition: width 0.3s ease;
+}
+
+.App-body .nav-bar li:hover::after {
+  width: 100%;
+}
+
+.App-body .nav-bar li:hover {
+  color: #ffd166;
+  transform: translateY(-2px);
+}
+
+.App-body .nav-bar li:first-child {
+  margin-right: auto;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Card Container */
+.App-body .card-container {
+  background: #1e1e2f;
+  border: 1px solid #2c2c3e;
+  border-radius: 15px;
+  padding: 25px;
+  width: 80%;
+  text-align: center;
+  margin: 2em auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.App-body .card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.85);
+  border-color: #6366f1;
+}
+
+/* Card Parent */
+.App-body .card-parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+/* Single Card */
+
+
+.App-body .single-card {
+  background: #2a2a40;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #3b3b55;
+}
+
+.App-body .single-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.9);
+  border-color: #6366f1;
+}
+
+.App-body .single-card h1 {
+  font-size: 20px;
+  margin: 15px 0 8px;
+  color: #f5f5f5;
+}
+
+.App-body .single-card p {
+  font-size: 14px;
+  color: #bbb;
+  margin: 5px 20px;
+  line-height: 1.6;
+}
+
+/* Button */
+.App-body .btn {
+  display: inline-block;
+  margin: 15px 0 20px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(90deg, #6366f1, #8f94fb);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.App-body .btn:hover {
+  background: linear-gradient(90deg, #4f46e5, #757dfb);
+}
+
+
+.btn-back {
+  background: transparent;
+  border: none;
+}
