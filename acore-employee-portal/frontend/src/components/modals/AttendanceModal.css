@@ -1,0 +1,274 @@
+.attendance-modal-content {
+  padding: 10px 0;
+}
+
+.attendance-status-card {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  color: white;
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.attendance-status-card.inactive {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+}
+
+.attendance-status-card.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  animation: workProgress 25200s linear;
+}
+
+.status-header {
+  margin-bottom: 20px;
+}
+
+.status-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-value {
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.working-time-display {
+  margin-bottom: 25px;
+}
+
+.time-value {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Courier New', monospace;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.time-label {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.progress-section {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #34d399 0%, #10b981 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.progress-text {
+  font-weight: 600;
+}
+
+.progress-percentage {
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.punch-button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.punch-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.punch-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.punch-button.loading {
+  opacity: 0.8;
+}
+
+.punch-in {
+  background: white;
+  color: #059669;
+}
+
+.punch-out {
+  background: white;
+  color: #ef4444;
+}
+
+.button-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.location-icon {
+  font-size: 16px;
+}
+
+.location-text {
+  font-weight: 500;
+}
+
+.attendance-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-item {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 2px solid #e2e8f0;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes workProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .attendance-status-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  .time-value {
+    font-size: 36px;
+  }
+  
+  .punch-button {
+    padding: 14px;
+    font-size: 16px;
+  }
+  
+  .progress-section {
+    padding: 15px;
+  }
+  
+  .attendance-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .stat-item {
+    padding: 15px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .attendance-status-card {
+    padding: 16px;
+  }
+  
+  .time-value {
+    font-size: 28px;
+  }
+  
+  .status-title {
+    font-size: 18px;
+  }
+  
+  .punch-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .attendance-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    padding: 12px;
+  }
+}
