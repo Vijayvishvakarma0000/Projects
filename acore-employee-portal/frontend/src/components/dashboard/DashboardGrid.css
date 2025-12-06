@@ -1,4 +1,4 @@
-.dashboard-grid-section {
+/* .dashboard-grid-section {
   margin-bottom: 30px;
 }
 
@@ -173,4 +173,309 @@
     font-size: 10px;
     padding: 4px 8px;
   }
+} */
+
+
+
+
+
+
+
+
+.dashboard-list-section {
+  margin-bottom: 0;
+}
+
+.dashboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* List Item Styles */
+.dashboard-list-item {
+  background: white;
+  padding: 18px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInRight 0.5s ease forwards;
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.dashboard-list-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.dashboard-list-item:hover::before {
+  left: 100%;
+}
+
+.dashboard-list-item:hover {
+  transform: translateX(5px);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(30, 60, 114, 0.1);
+  border-color: #1e3c72;
+}
+
+/* List Item Icon */
+.list-item-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  box-shadow: 0 6px 15px rgba(30, 60, 114, 0.3);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.dashboard-list-item:hover .list-item-icon {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4);
+}
+
+.list-icon-symbol {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-list-item:hover .list-icon-symbol {
+  transform: scale(1.1);
+}
+
+/* List Item Content */
+.list-item-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.list-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.list-item-title {
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dashboard-list-item:hover .list-item-title {
+  color: #1e3c72;
+}
+
+.list-item-description {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dashboard-list-item:hover .list-item-description {
+  color: #475569;
+}
+
+/* List Item Badge */
+.list-item-badge {
+  padding: 3px 10px;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.list-item-badge.active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+}
+
+.dashboard-list-item:hover .list-item-badge.active {
+  transform: scale(1.05);
+}
+
+.list-item-badge.pending {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.list-item-badge.warning {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+/* List Item Arrow */
+.list-item-arrow {
+  color: #cbd5e1;
+  font-weight: bold;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(-5px);
+}
+
+.dashboard-list-item:hover .list-item-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: #1e3c72;
+}
+
+/* Hover Effect Background */
+.list-item-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.03), rgba(42, 82, 152, 0.03));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+}
+
+.dashboard-list-item:hover .list-item-hover-effect {
+  opacity: 1;
+}
+
+/* Active State */
+.dashboard-list-item:active {
+  transform: translateX(2px);
+  transition: all 0.1s ease;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .dashboard-list {
+    gap: 6px;
+  }
+  
+  .dashboard-list-item {
+    padding: 16px;
+    border-radius: 10px;
+    gap: 14px;
+  }
+  
+  .list-item-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+  
+  .list-item-title {
+    font-size: 15px;
+  }
+  
+  .list-item-description {
+    font-size: 12px;
+  }
+  
+  .list-item-header {
+    gap: 8px;
+  }
+  
+  .list-item-badge {
+    font-size: 9px;
+    padding: 2px 8px;
+  }
+  
+  .list-item-arrow {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-list-item {
+    padding: 14px;
+    gap: 12px;
+  }
+  
+  .list-item-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .list-item-title {
+    font-size: 14px;
+  }
+  
+  .list-item-description {
+    font-size: 11px;
+  }
+}
+
+/* Desktop Styles - When sidebar is always visible */
+@media (min-width: 769px) {
+  .dashboard-list-item {
+    animation-delay: calc(var(--index, 0) * 0.1s);
+  }
+}
+
+/* Focus states for accessibility */
+.dashboard-list-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.3);
+}
+
+
+/* Salary Card Special Styles */
+.dashboard-list-item:nth-child(3) .list-item-icon {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.dashboard-list-item:nth-child(3):hover .list-item-icon {
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+}
+
+.dashboard-list-item:nth-child(3)::before {
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+}
+
+.dashboard-list-item:nth-child(3):hover .list-item-title {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

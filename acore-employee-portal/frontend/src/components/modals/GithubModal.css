@@ -12,13 +12,13 @@
   gap: 8px;
 }
 
-/* GitHub Form */
+
 .github-form-section {
   margin-bottom: 30px;
 }
 
 .github-form {
-  background: #0d1117;
+  background: linear-gradient(135deg, #000000 0%, #3533cd 100%);
   padding: 25px;
   border-radius: 15px;
   border: 2px solid #30363d;
@@ -41,13 +41,14 @@
 .github-textarea {
   width: 100%;
   padding: 12px 16px;
-  background: #0d1117;
+  background: #fff;
   border: 2px solid #30363d;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Monaco', 'Consolas', monospace;
-  color: #f0f6fc;
+  color: black;
   transition: all 0.3s ease;
+  font-weight: 600;
 }
 
 .github-input:focus,
@@ -117,7 +118,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Recent Commits */
+
 .recent-commits-section {
   margin-bottom: 25px;
 }
@@ -209,14 +210,22 @@
   background: #e1e4e8;
 }
 
-/* GitHub Stats */
+
+/* .github-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+} */
+
+
 .github-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
+  width: 100%;
 }
 
-.stat-card {
+/* .stat-card {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -225,6 +234,25 @@
   border-radius: 12px;
   border: 2px solid #e1e4e8;
   transition: all 0.3s ease;
+} */
+
+
+.stat-card {
+  display: flex;
+  flex-direction: column; /* content vertical center */
+  align-items: center; /* horizontal center */
+  justify-content: center; /* vertical center */
+  text-align: center;
+  gap: 10px;
+  
+  padding: 20px;
+  min-height: 120px; /* fixed height */
+  
+  background: #f6f8fa;
+  border-radius: 12px;
+  border: 2px solid #e1e4e8;
+  transition: all 0.3s ease;
+  overflow: hidden; /* bahar nikalna band */
 }
 
 .stat-card:hover {
@@ -233,7 +261,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.stat-icon {
+/* .stat-icon {
   font-size: 20px;
   width: 40px;
   height: 40px;
@@ -244,10 +272,30 @@
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+} */
+
+
+
+
+.stat-icon {
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
+/* .stat-info {
+  flex: 1;
+} */
+
 
 .stat-info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-value {

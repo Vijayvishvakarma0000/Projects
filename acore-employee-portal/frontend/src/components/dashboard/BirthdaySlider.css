@@ -1,0 +1,1237 @@
+/* @import "@glidejs/glide/dist/css/glide.core.min.css";
+@import "@glidejs/glide/dist/css/glide.theme.min.css";
+
+.birthday-slider-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  color: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.slider-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.glide__slides {
+  display: flex;
+  align-items: center;
+}
+
+.employee-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  color: #1a202c;
+  transition: all 0.4s ease;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.employee-card:hover {
+  transform: scale(1.05);
+}
+
+.employee-card h4 {
+  margin: 8px 0 3px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.employee-card .designation {
+  font-size: 12px;
+  color: #667eea;
+  font-weight: 600;
+  margin: 0;
+}
+
+.employee-card .department {
+  font-size: 11px;
+  color: #718096;
+  background: #edf2f7;
+  padding: 3px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.employee-image {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px auto;
+}
+
+.employee-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+}
+
+.card-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border: 2px solid #fff;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+}
+
+.employee-card.anniversary .card-badge {
+  background: linear-gradient(135deg, #4ecdc4, #88d3ce);
+}
+
+.celebration-info {
+  margin-top: 8px;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.type-badge.birthday {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+}
+
+.type-badge.anniversary {
+  background: linear-gradient(135deg, #4ecdc4, #88d3ce);
+}
+
+.glide__arrow {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 22px;
+  transition: 0.3s;
+}
+
+.glide__arrow:hover {
+  background: rgba(255, 255, 255, 0.6);
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .glide__slide {
+    width: 160px;
+  }
+} */
+
+
+/* .team-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 40px 20px;
+  border-radius: 25px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.slider-heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.team-card {
+  background: #fff;
+  color: #1a202c;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.img-box {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg,#ff6b6b,#ff8e8e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+}
+
+.swiper-slide.anniversary .badge {
+  background: linear-gradient(135deg,#4ecdc4,#88d3ce);
+}
+
+.content h4 {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 700;
+}
+
+.content .designation {
+  font-size: 13px;
+  color: #667eea;
+  margin: 0;
+}
+
+.content .date {
+  font-size: 12px;
+  color: #764ba2;
+  margin-top: 6px;
+}
+
+
+.swiper-slide {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+.swiper-slide-active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@media (max-width:768px){
+  .team-card { padding:15px; }
+  .img-box { width:80px;height:80px; }
+}
+.team-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 40px 20px;
+  border-radius: 25px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.slider-heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.team-card {
+  background: #fff;
+  color: #1a202c;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.img-box {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg,#ff6b6b,#ff8e8e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+}
+
+.swiper-slide.anniversary .badge {
+  background: linear-gradient(135deg,#4ecdc4,#88d3ce);
+}
+
+.content h4 {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 700;
+}
+
+.content .designation {
+  font-size: 13px;
+  color: #667eea;
+  margin: 0;
+}
+
+.content .date {
+  font-size: 12px;
+  color: #764ba2;
+  margin-top: 6px;
+}
+
+
+.swiper-slide {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+.swiper-slide-active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@media (max-width:768px){
+  .team-card { padding:15px; }
+  .img-box { width:80px;height:80px; }
+}
+.team-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 50px 20px;
+  border-radius: 25px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.slider-heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.team-card {
+  background: #fff;
+  color: #1a202c;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transition: transform 0.6s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.team-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.img-box {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 0 15px rgba(102,126,234,0.5);
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #764ba2; }
+  to { box-shadow: 0 0 25px #667eea; }
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg,#ff6b6b,#ff8e8e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.swiper-slide.anniversary .badge {
+  background: linear-gradient(135deg,#4ecdc4,#88d3ce);
+}
+
+.content h4 {
+  font-size: 17px;
+  margin: 5px 0;
+  font-weight: 700;
+}
+
+.designation {
+  font-size: 13px;
+  color: #667eea;
+}
+
+.date {
+  font-size: 12px;
+  color: #764ba2;
+  margin-top: 6px;
+}
+
+.greet-box {
+  margin-top: 10px;
+  font-size: 12px;
+  background: linear-gradient(135deg, #667eea33, #764ba233);
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.greeting {
+  margin: 0;
+  line-height: 1.4;
+  color: #333;
+  font-weight: 600;
+}
+
+.swiper-slide {
+  transform: scale(0.9);
+  opacity: 0.6;
+  transition: all 0.7s ease;
+}
+.swiper-slide-active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@media (max-width:768px){
+  .team-card { padding:15px; }
+  .img-box { width:90px; height:90px; }
+}
+
+
+.team-card-modern {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 320px;
+  margin: 10px;
+}
+
+.team-card-modern:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.badge-modern {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.img-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border-radius: 50%;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.employee-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 5px 0;
+}
+
+.designation {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 8px 0;
+}
+
+.date-info {
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8eff4;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #4a5568;
+  justify-content: center;
+}
+
+
+.date-info:hover {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.greeting-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.greeting-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.greeting-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.greeting-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4a5568;
+}
+
+.greeting-text strong {
+  color: #2d3748;
+}
+
+.wish-text {
+  font-size: 13px;
+  color: #718096;
+} */
+
+
+
+
+/* BirthdaySlider.css */
+
+/* .team-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 50px 20px;
+  border-radius: 25px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.slider-heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+
+.swiper-slide {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.swiper-slide-active,
+.swiper-slide-next,
+.swiper-slide-prev {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.team-card-modern {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  max-width: 320px;
+  margin: 10px;
+  transform: translateY(0);
+}
+
+
+.team-card-modern:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.badge-modern {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.img-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.team-card-modern:hover .img-container {
+  transform: scale(1.05);
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border-radius: 50%;
+}
+
+.profile-info {
+  flex: 1;
+  text-align: left;
+}
+
+.employee-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 5px 0;
+  transition: color 0.3s ease;
+}
+
+.team-card-modern:hover .employee-name {
+  color: #667eea;
+}
+
+.designation {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 8px 0;
+}
+
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #4a5568;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.team-card-modern:hover .date-info {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.greeting-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.team-card-modern:hover .greeting-section {
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  transform: translateY(-2px);
+}
+
+.greeting-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.greeting-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.team-card-modern:hover .greeting-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.greeting-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4a5568;
+  transition: color 0.3s ease;
+}
+
+.team-card-modern:hover .greeting-text {
+  color: #2d3748;
+}
+
+.greeting-text strong {
+  color: #2d3748;
+}
+
+.wish-text {
+  font-size: 13px;
+  color: #718096;
+  transition: color 0.3s ease;
+}
+
+.team-card-modern:hover .wish-text {
+  color: #4a5568;
+}
+
+
+@media (max-width: 768px) {
+  .team-slider {
+    padding: 30px 15px;
+  }
+  
+  .slider-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .team-card-modern {
+    margin: 5px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .profile-section {
+    gap: 12px;
+  }
+  
+  .img-container {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .employee-name {
+    font-size: 16px;
+  }
+  
+  .designation {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-slider {
+    padding: 25px 10px;
+    border-radius: 20px;
+  }
+  
+  .slider-heading {
+    font-size: 20px;
+  }
+  
+  .team-card-modern {
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .profile-info {
+    text-align: center;
+  }
+} */
+
+
+/* BirthdaySlider.css */
+
+.team-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 50px 20px;
+  border-radius: 25px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+  border: 1.4px solid white;
+}
+
+.slider-heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Remove Swiper's default active slide styles */
+.swiper-slide {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.swiper-slide-active,
+.swiper-slide-next,
+.swiper-slide-prev {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.team-card-modern {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 320px;
+  margin: 10px;
+  transform: translateY(0);
+  position: relative;
+}
+
+/* Enhanced Hover Effect - Card aur upper uthega aur glow karega */
+.team-card-modern:hover {
+  transform: translateY(-19px); /* Increased from -10px to -15px */
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(102, 126, 234, 0.4); /* Added glow effect */
+}
+
+/* Optional: Add a subtle border glow on hover */
+.team-card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.team-card-modern:hover::before {
+  opacity: 1;
+}
+
+.card-header {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  z-index: 2;
+}
+
+.badge-modern {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body {
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.img-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  border: 3px solid transparent;
+}
+
+.team-card-modern:hover .img-container {
+  transform: scale(1.1);
+  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.team-card-modern:hover .img-container img {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border-radius: 50%;
+  transition: opacity 0.4s ease;
+}
+
+.team-card-modern:hover .image-overlay {
+  opacity: 0.7;
+}
+
+.profile-info {
+  flex: 1;
+  text-align: left;
+}
+
+.employee-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 5px 0;
+  transition: all 0.4s ease;
+}
+
+.team-card-modern:hover .employee-name {
+  color: #667eea;
+  text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.designation {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 8px 0;
+  transition: color 0.4s ease;
+}
+
+.team-card-modern:hover .designation {
+  color: #4a5568;
+}
+
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #4a5568;
+  transition: all 0.4s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.team-card-modern:hover .date-info {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.greeting-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  transition: all 0.4s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.team-card-modern:hover .greeting-section {
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  transform: translateY(-3px);
+  border-color: rgba(102, 126, 234, 0.2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.greeting-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.greeting-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.team-card-modern:hover .greeting-icon {
+  transform: scale(1.3) rotate(8deg);
+  filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.4));
+}
+
+.greeting-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4a5568;
+  transition: all 0.4s ease;
+}
+
+.team-card-modern:hover .greeting-text {
+  color: #2d3748;
+  transform: translateX(2px);
+}
+
+.greeting-text strong {
+  color: #2d3748;
+  transition: color 0.4s ease;
+}
+
+.team-card-modern:hover .greeting-text strong {
+  color: #667eea;
+}
+
+.wish-text {
+  font-size: 13px;
+  color: #718096;
+  transition: all 0.4s ease;
+}
+
+.team-card-modern:hover .wish-text {
+  color: #4a5568;
+  transform: translateX(2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-slider {
+    padding: 30px 15px;
+  }
+  
+  .slider-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .team-card-modern {
+    margin: 5px;
+  }
+  
+  .team-card-modern:hover {
+    transform: translateY(-12px); /* Slightly less on mobile */
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .profile-section {
+    gap: 12px;
+  }
+  
+  .img-container {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .employee-name {
+    font-size: 16px;
+  }
+  
+  .designation {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-slider {
+    padding: 25px 10px;
+    border-radius: 20px;
+  }
+  
+  .slider-heading {
+    font-size: 20px;
+  }
+  
+  .team-card-modern {
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .team-card-modern:hover {
+    transform: translateY(-10px); /* Even less on small mobile */
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .profile-info {
+    text-align: center;
+  }
+}
+
+
+
+
+
+.team-card-modern {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  max-width: 320px;
+  margin: 10px;
+  transform: translateY(0) translateZ(0);
+}
+
+/* 3D Elevation Effect - Card upar uth jayega */
+.team-card-modern:hover {
+  transform: translateY(-15px) translateZ(30px);
+}
+
+
+
