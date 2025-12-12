@@ -1,0 +1,15 @@
+.Btn{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgb(47, 36, 22);
+   
+}
+.Btn1{
+  width: 45px;
+  height: 45px;
+  margin: 6px;
+}
+.Btn1:hover{
+  background-color: rgb(127, 95, 159);
+}
