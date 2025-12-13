@@ -1,0 +1,148 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+.sidebar {
+  position: relative;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  transition: width 0.3s ease;
+  overflow-x: hidden;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+/* Hover effect when collapsed */
+.sidebar.collapsed.hover-expanded {
+  width: 250px;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+/* Toggle Button */
+.sidebar-toggle {
+  position: absolute;
+  top: 15px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  background: #3b82f6;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  z-index: 1001;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}
+
+/* Header */
+.sidebar-header {
+  padding: 20px 15px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+/* Role badge */
+.role-badge {
+  background: #3b82f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Navigation */
+.sidebar-nav {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 15px;
+  border-top: 1px solid #334155;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.sidebar.collapsed .sidebar-footer p {
+  text-align: center;
+}
+
+/* TreeView adjustments for collapsed state */
+.sidebar.collapsed:not(.hover-expanded) .tree-item-label {
+  display: none;
+}
+
+.sidebar.collapsed:not(.hover-expanded) .tree-item {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sidebar.collapsed:not(.hover-expanded) .tree-item-icon {
+  margin-right: 0;
+  font-size: 18px;
+}
